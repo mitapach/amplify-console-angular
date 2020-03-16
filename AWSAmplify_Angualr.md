@@ -1,5 +1,7 @@
+# AWS Amplify Console を利用したCI/CD 環境 for Angular
 
-# Windows 10にVisual Studio CodeとGitをインストールする
+
+## Windows 10にVisual Studio CodeとGitをインストールする
 
 [Windows 10にVisual Studio CodeとGitをインストールする](https://taccuma.com/install-vscode-and-git-in-win10/)
 
@@ -12,13 +14,26 @@
 > git config --global core.quotepath false #日本語ファイル名がエスケープされないように
 `C:\Users\akihi\.gitconfig`に設定される。
 
+> [core]
+> 	editor = \"C:\\Users\\akihi\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" --wait
+> 	quotepath = false
+> [user]
+> 	name = mitapach
+> 	email = akihiko.mita@koa.muratec.co.jp
+> [push]
+> 	default = simple
+> [http "https://github.com/"]
+> 	proxy = http://172.28.2.113:8080
+> [http]
+> 	proxy = http://172.28.2.113:8080
+> [https]
+> 	proxy = http://172.28.2.113:8080
 
-# VSCode + GitHub
+
+## GitHub SSH 設定
 
 [GitHubとVSCODEの連携方法](https://qiita.com/yu0313/items/4f95fc0b7e544c42e107)
 
-
-# GitHub SSH
 1. 鍵（id_git_rsa）を作成する。
 > ssh-keygen -t rsa
 > Generating public/private rsa key pair.
@@ -34,12 +49,19 @@ Enter file in which to save the key (/Users/(username)/.ssh/id_rsa):id_git_rsa
 
 3. id_git_rsa を利用可能にする
    `C:\Users\akihi\.ssh`に`configファイル`を追加
-  > Host github github.com
-  > HostName github.com
-  > IdentityFile ~/.ssh/id_git_rsa #ここに自分の鍵のファイル名
-  > User git
+
+> Host github github.com
+>   HostName github.com
+>   IdentityFile ~/.ssh/id_git_rsa #ここに自分の鍵のファイル名
+>   User git
+> Host ssh.github.com
+>   HostName ssh.github.com
+>   IdentityFile ~/.ssh/id_git_rsa #ここに自分の鍵のファイル名
+>   User git
+
 
 4. GitHub に公開鍵を登録する
+   [Github-サインイン](https://github.com/login?return_to=%2Fjoin)
    'New SSH Key' → `Key` に公開鍵の中身を貼り付け
 
 5. 接続確認
@@ -47,10 +69,7 @@ Enter file in which to save the key (/Users/(username)/.ssh/id_rsa):id_git_rsa
   > Hi mitapach! You've successfully authenticated, but GitHub does not provide shell access.
 
 
-# AWS Amplify Console を利用したCI/CD 環境 for Angular
-
-[Github-サインイン](https://github.com/login?return_to=%2Fjoin)
-
+## Angular プロジェクトを作成する
 
 1. プロジェクトフォルダを作成する
    > mkdir amplify-console-angular
@@ -63,12 +82,23 @@ Enter file in which to save the key (/Users/(username)/.ssh/id_rsa):id_git_rsa
    > npx ng new amplify-console-angular --directory=./  
    ※カレントディレクトリに作成する。
 
-4. Githubにpushする
-   >git remote add origin https://github.com/mitapach/amplify-console-angular.git
+4. ローカルリポジトリにコミット
+   >git add .
+   >git commit -m "first commit"
+
+5. Githubにpushする
+   >git remote add origin git@github.com:mitapach/amplify-console-angular.git
    >git push -u origin master
 
-5. a
-6. 
+## AWS Amplify console を使ってサイトを公開する
+[AWS Amplify console を使ってサイトを公開する](https://dev.classmethod.jp/cloud/aws-amplify-console-angular-ci-cd/)
+
+1. Amplify console から登録する。
+   [AWS Amplify Console](https://ap-northeast-1.console.aws.amazon.com/amplify/home?region=ap-northeast-1#/home)
+   
+   From your existing code → GitHub
+
+2. 
 
 
 
